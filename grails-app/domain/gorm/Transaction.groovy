@@ -9,6 +9,7 @@ class Transaction {
 
     static constraints = {
         type(inList: ["Cr", "Dr"])
+        dateCreated bindable: true
     }
 
     static mapping = {
@@ -16,12 +17,12 @@ class Transaction {
     }
 
     static namedQueries = {
-       debitAmount {Account account ->
-           projections{
-           sum('amount')
-           }
-           eq('account',account)
-           eq('type','Dr')
-       }
+        debitAmount { Account account ->
+            projections {
+                sum('amount')
+            }
+            eq('account', account)
+            eq('type', 'Dr')
+        }
     }
 }

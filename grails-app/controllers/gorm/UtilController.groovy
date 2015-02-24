@@ -1,5 +1,7 @@
 package gorm
 
+import org.hibernate.FetchMode
+
 class UtilController {
 
     static defaultAction = "list"
@@ -74,11 +76,12 @@ class UtilController {
         List<Account> accounts = Account.createCriteria().list() {
             not {
                 between("balance", 5000, 10000)
-
                 'branch' {
                     eq("name", "London")
                 }
             }
+//            fetchMode("user", FetchMode.JOIN)
+//            fetchMode("user", FetchMode.SELECT)
         }
         render "Result -> ${accounts*.balance} ${accounts*.branch*.name}"
     }
