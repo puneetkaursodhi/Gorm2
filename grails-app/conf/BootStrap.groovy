@@ -13,6 +13,7 @@ class BootStrap {
     }
 
     void createBranches() {
+        println "############Creating Branches############"
         (1..10).each {
             Branch branch = new Branch(name: "Delhi", address: "Address ${it}, Delhi")
             saveObject(branch)
@@ -28,6 +29,7 @@ class BootStrap {
     }
 
     void createUsers() {
+        println "############Creating Users############"
         User user
         (1..50).each {
             user = new User(firstName: "Test ${it}", address: "Address user ${it}", lastName: "last name${it}", age: it < 18 ? (it + 18) : ((it > 50) ? (it - 32) : it))
@@ -36,7 +38,8 @@ class BootStrap {
     }
 
     void createAccounts() {
-        User.list().eachWithIndex {User user,index ->
+        println "############Creating accounts############"
+        User.list().eachWithIndex { User user, index ->
             Branch branch = Branch.get(user.id)
             Account account = new Account(balance: 1000 * (user.id), user: user, dateCreated: (new Date() - index))
             branch.addToAccounts(account)
@@ -46,12 +49,12 @@ class BootStrap {
     }
 
     void createTransactions() {
-        Account.list().eachWithIndex {Account account, index ->
+        println "############Creating transactions############"
+        Account.list().eachWithIndex { Account account, index ->
             (1..10).each {
                 if (index % 2) {
                     createTransaction(account, index * 1000, "Cr", (new Date() - it))
-                }
-                else {
+                } else {
                     createTransaction(account, index * 1000, "Dr", (new Date() - it))
                 }
             }
